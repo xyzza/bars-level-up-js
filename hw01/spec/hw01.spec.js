@@ -117,6 +117,7 @@ describe("Jedi.toLightSide:", function () {
     var luke, darth, joda;
     beforeEach(function () {
         joda = new Jedi("Joda", 100);
+        palpatine = new Sith("Palpatine", 100);
         darth = new Sith("Darth Vader", 1000);
         luke = new Jedi("Like Skywalker", 1001);
     });
@@ -137,5 +138,11 @@ describe("Jedi.toLightSide:", function () {
         darth.toDarkSide(luke);
         expect(darth.sideOfForce).toEqual("light");
         expect(luke.sideOfForce).toEqual("light");
+    });
+
+    it("Palpatine сразился с Joda и никто не смог одержать верх, ибо силы равны", function () {
+        palpatine.toDarkSide(joda);
+        expect(palpatine.sideOfForce).toEqual("dark");
+        expect(joda.sideOfForce).toEqual("light");
     });
 });

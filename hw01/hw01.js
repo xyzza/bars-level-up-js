@@ -65,8 +65,8 @@ Warrior.prototype.toMySight = function(enemy) {
   if ( this.level > enemy.level ) {
       //пробуем сманить его на свою сторону:
       enemy.sideOfForce = this.sideOfForce;
-  } else {
-      //если не вышло - перейдем на сторону врага:
+  } else if (this.level < enemy.level) {
+      //если враг сильнее - перейдем на сторону врага:
       this.sideOfForce = enemy.sideOfForce;
   }
 }
