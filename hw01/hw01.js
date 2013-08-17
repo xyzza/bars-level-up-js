@@ -47,13 +47,7 @@ Warrior.prototype.attack = function() {
  * @return {String} Кодекс воина.
  */
 Warrior.prototype.getCode = function() {
-  if ( this instanceof Sith ) {
-      return "Спокойствие — ложь, есть только страсть...";
-  } else if ( this instanceof Jedi) {
-      return "Нет волнения — есть покой...";
-  } else {
-      return this.code;
-  }
+  return this.code;
 }
 
 Warrior.prototype.toMySight = function(enemy) {
@@ -90,6 +84,7 @@ function Jedi (name, level) {
   this.level = level;
   this.sideOfForce = 'light';
   this.cls = Jedi;
+  this.code = "Нет волнения — есть покой...";
   
   this.toLightSide = function(sith) {
       this.toMySight(sith);
@@ -106,6 +101,7 @@ function Sith (name, level) {
   this.level = level;
   this.sideOfForce = 'dark';
   this.cls = Sith;
+  this.code = "Спокойствие — ложь, есть только страсть...";
   
   this.toDarkSide = function(jedi) {
       this.toMySight(jedi);
