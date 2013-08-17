@@ -16,8 +16,11 @@
  * @param {String} name Имя воина.
  * @param {Number} level Уровень воина.
  */
-function Warrior(name, level){
+function Warrior(name, level) {
   // Ваш код здесь...
+  this.name = name;
+  this.level = level;
+  this.code = "Война - наше ремесло!";
 }
 
 /**
@@ -33,9 +36,19 @@ function Warrior(name, level){
  * @name Warrior.attack
  * @return {Number} Урон, наносимой атакой.
  */
-Warrior.prototype.attack = function() {
+//Warrior.prototype.attack = function() {
   // Ваш код здесь...
-};
+//  return this.level * 0.1;
+//};
+
+Warrior.prototype = {
+    attack: function() {
+        return this.level * 0.1;
+    },
+    getCode: function() {
+        return this.code;
+    }
+}
 
 /**
  * Задание 3. Создать наследников класса Warrior: Jedi, Sith.
@@ -45,7 +58,6 @@ Warrior.prototype.attack = function() {
  * Кодекс джедая: "Нет волнения — есть покой...".
  * Кодекс ситха: "Спокойствие — ложь, есть только страсть..."
  */
-
 /**
  * Создает экземпляр джедая
  * @param {String} name Имя джедая.
@@ -53,15 +65,50 @@ Warrior.prototype.attack = function() {
  */
 function Jedi (name, level) {
   // Ваш код здесь...
+  this.name = name;
+  this.level = level;
+  this.sideOfForce = 'light';
+  //Не нашел способа лучше, чем переопределить атрибут и засунуть в него новую функцию.
+  //И есть ощущение, что это не правильный способ. Можно привести пример как это должно реализовываться?
+  this.getCode = function() { return "Нет волнения — есть покой..." };
+  this.toLightSide = function(sith) {
+    //если не ситх - исключение!
+    if ( sith instanceof Jedi ) {
+        throw new Error( "Invalid argument" );
+    }//if
+    //сравниваем уровни
+    if ( this.level > sith.level ) {
+        sith.sideOfForce = 'light';
+    } else { //if
+        this.sideOfForce = 'dark';
+    }//else
+    }//toLightSide
 }
-
+Jedi.prototype.constructor = Warrior;
 /**
  * Создает экземпляр ситха
  * @param {String} name Имя ситха.
  * @param {Number} level Уровень ситха.
  */
-// Ваш код здесь...
-
+function Sith (name, level) {
+    this.name = name;
+    this.level = level;
+    this.sideOfForce = 'dark';
+    this.getCode = function() { return "Спокойствие — ложь, есть только страсть..." };
+    this.toDarkSide = function(jedi) {
+    //если не ситх - исключение!
+    if ( jedi instanceof Sith ) {
+        throw new Error( "Invalid argument" );
+    }//if
+    //сравниваем уровни
+    if ( this.level > jedi.level ) {
+        jedi.sideOfForce = 'dark';
+    } else { //if
+        this.sideOfForce = 'light';
+    }//else
+    }//toLightSide
+}
+Sith.prototype.constructor = Warrior;
 
 /**
  * Метод произнесения кодекса.
@@ -72,7 +119,6 @@ function Jedi (name, level) {
  */
 // Ваш код здесь...
 
-
 /**
  * Задание 4. Добавить метод toLightSide классу Jedi.
  * Метод в качестве параметра принимает экземпляр класса Sith.
@@ -81,6 +127,7 @@ function Jedi (name, level) {
  * на светлую сторону (значение поля sideOfForce у ситха становится "light"), 
  * иначе джедай переходит на темную.
  */
+
 
 /**
  * Метод призыва на светлую сторону.
